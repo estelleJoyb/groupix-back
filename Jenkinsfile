@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'feat/jenkins', url: 'https://gitlab.com/esgi666/groupix.git'
+                git branch: 'jenkins', url: 'https://github.com/estelleJoyb/groupix-back.git'
             }
         }
 
