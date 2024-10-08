@@ -3,7 +3,7 @@ const { Group, User } = require("../models/Group");
 exports.getAllGroups = async (req, res) => {
   try {
     const groups = await Group.findAll({
-      order: [["name", "DESC"]],
+      order: ["name", "DESC"],
       include: User,
     });
     res.json(groups);
