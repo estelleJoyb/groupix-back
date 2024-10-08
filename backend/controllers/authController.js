@@ -1,6 +1,5 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const sequelize = require("../config/db");
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
 
@@ -47,7 +46,7 @@ exports.login = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, email, password } = req.body;
+  const { email, password } = req.body;
 
   try {
     let user = await User.findOne({ where: { email } });
@@ -67,7 +66,7 @@ exports.login = async (req, res) => {
 
     res.json({ token });
   } catch (err) {
-    res.status(500).send("Server error");
+    res.status(500).send("Server error: "+err);
   }
 };
 
