@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../server");
+const app = require("../server"); // Assure-toi que server.js est exporté correctement
 const sequelize = require("../config/db");
 
 beforeAll(async () => {
@@ -12,6 +12,7 @@ afterAll(async () => {
 
 describe("Auth API", () => {
   it("should register a new user", async () => {
+    await sequelize.sync({ force: true });
     const res = await request(app).post("/api/auth/register").send({
       name: "Test User",
       email: "testuser@example.com",
