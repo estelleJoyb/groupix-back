@@ -12,7 +12,13 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh 'npm install'
+                        sh '''
+                            # Charger les variables d'environnement
+                            if [ -f .env ]; then
+                                source .env
+                            fi
+                            npm install
+                        '''
                     }
                 }
             }
@@ -22,7 +28,13 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh 'npm run lint'
+                        sh '''
+                            # Charger les variables d'environnement
+                            if [ -f .env ]; then
+                                source .env
+                            fi
+                            npm run lint
+                        '''
                     }
                 }
             }
@@ -32,7 +44,13 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh 'npm run test'
+                        sh '''
+                            # Charger les variables d'environnement
+                            if [ -f .env ]; then
+                                source .env
+                            fi
+                            npm run test
+                        '''
                     }
                 }
             }
@@ -42,7 +60,13 @@ pipeline {
             steps {
                 script {
                     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                        sh 'npm run build'
+                        sh '''
+                            # Charger les variables d'environnement
+                            if [ -f .env ]; then
+                                source .env
+                            fi
+                            npm run build
+                        '''
                     }
                 }
             }
