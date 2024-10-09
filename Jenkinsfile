@@ -1,10 +1,15 @@
 pipeline {
+
     agent any
+    
+    environment {
+        SONARCLOUD_TOKEN = credentials('sonarcloud') 
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'develop', url: 'https://github.com/estelleJoyb/groupix-back.git'
+                git branch: 'jenkins', url: 'https://github.com/estelleJoyb/groupix-back.git'
             }
         }
 
@@ -23,6 +28,26 @@ pipeline {
         stage('Tests unitaires') {
             steps {
                 sh 'npm run test'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+
+        stage('SonarCloud Analysis') {
+            steps {
+                script {
+                    sh '''
+                        sonar-scanner \
+                        -Dsonar.organization=groupix \
+                        -Dsonar.projectKey=groupix_groupix \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=https://sonarcloud.io
+                    '''
+                }
             }
         }
     }
