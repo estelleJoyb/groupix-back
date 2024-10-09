@@ -1,6 +1,5 @@
 const express = require("express");
 const helmet = require("helmet");
-const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const authRoutes = require("./routes/auth");
 const groupRoutes = require("./routes/group");
@@ -33,4 +32,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/groups", groupRoutes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+}
+
+module.exports = app;
