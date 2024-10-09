@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../server"); // Assure-toi que server.js est exporté correctement
+const app = require("../server");
 const sequelize = require("../config/db");
 
 beforeAll(async () => {
