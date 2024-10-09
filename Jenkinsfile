@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'jenkins', url: 'https://github.com/estelleJoyb/groupix-back.git'
+                git branch: 'develop', url: 'https://github.com/estelleJoyb/groupix-back.git'
             }
         }
 
@@ -17,6 +17,12 @@ pipeline {
         stage('Lint') {
             steps {
                 sh 'npm run lint'
+            }
+        }
+
+        stage('Tests unitaires') {
+            steps {
+                sh 'npm run test'
             }
         }
     }
