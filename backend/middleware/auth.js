@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const User = require("../models/User");
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -32,7 +34,7 @@ exports.login = async (req, res) => {
       }
     );
   } catch (err) {
-    res.status(500).send("Server error");
+    res.status(500).send("Server error: "+err);
   }
 };
 
@@ -48,6 +50,6 @@ module.exports = function (req, res, next) {
     req.user = decoded.user;
     next();
   } catch (err) {
-    res.status(401).json({ msg: "Token is not valid" });
+    res.status(401).json({ msg: "Token is not valid"+err });
   }
 };
